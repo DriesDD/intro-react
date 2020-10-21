@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import './App.css';
 
 function App() {
@@ -19,17 +19,20 @@ function App() {
           My todos:
         </h2>
         <div className="List">
-      <Itemlist items={items} />
+      <Itemlist items={initialTodos} />
       </div>
     </div>
   );
 }
 
+const initialTodos = ['Feed the chickens','Water the plants','Fix the doorbell'];
+
+
 function Itemlist(props) {
   const items = props.items;
   const listItems = items.map((item) =>
     <ul key={item.toString()}>
-      <span>☐</span> {item}
+      <input className="" type="checkbox"/> {item}
     </ul>
   );
   return (
@@ -37,6 +40,5 @@ function Itemlist(props) {
   );
 }
 
-const items = ['Feed the chickens','Water the plants','Fix the doorbell'];
 
 export default App;

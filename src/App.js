@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRef } from "react";
 import './App.css';
 
 function App() {
@@ -9,36 +10,49 @@ function App() {
           My todo app
         </h1>
       </header>
-      <form>
-        <p>Add a new todo:</p>
-        <input
-          type="text"
-        />
-      </form>
+      <Form />
       <h2>
           My todos:
         </h2>
         <div className="List">
-      <Itemlist items={initialTodos} />
-      </div>
+        <TodoList />
+        </div>
     </div>
   );
 }
 
-const initialTodos = ['Feed the chickens','Water the plants','Fix the doorbell'];
-
-
-function Itemlist(props) {
-  const items = props.items;
-  const listItems = items.map((item) =>
-    <ul key={item.toString()}>
-      <input className="" type="checkbox"/> {item}
-    </ul>
-  );
+function TodoList() {
+  const initialTodos = ["Buy groceries", "Feed the chickens"];
+  const [todos, setTodos] = useState(initialTodos);
   return (
-    <ul>{listItems}</ul>
+    <ul>
+      {todos.map((todo) => (
+        <li>
+          <input type="checkbox" /> {todo}
+        </li>
+      ))}
+    </ul>
   );
 }
 
+function Form() {
+  const inputRef = useRef();
+
+  function clickHandler() {
+    const inputElement = inputRef.current;
+
+    // Do something with inputElement...
+    console.log(inputElement.value);
+  }
+
+  return (
+    <div>
+              <p>Add a new todo:</p>
+      <input ref={inputRef} type="text" placeholder="Write a new todo" />
+      <br />
+      <button onClick={clickHandler}>Add todo</button>
+    </div>
+  );
+}
 
 export default App;
